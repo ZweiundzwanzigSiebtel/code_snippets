@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 #include <stdio.h>
 
 #define concat(a, b) a ## b
@@ -7,18 +15,20 @@
     !macro_var(_i_);           \
     (macro_var(_i_) += 1), end) \
 
-int main() {
-    FILE *fp = fopen("example.txt", "w");
-    if (fp == NULL) {
-        printf("couldn't open file");
-        return 1;
-    }
+typedef struct Test {
+    int x;
+    int y;
+} Test;
 
-    defer(0, fclose(fp))
-    {
-        fprintf(fp, "hello world");
-        // more code could go here...
-    }
+Test get_test(void) {
+    Test test = {.x = 10, .y=20};
+    return test;
+}
 
-    return 0;
+int main()
+{
+    defer(0, printf("hello world\n")) {
+        Test z = get_test();
+        printf("%d %d\n", z.x, z.y);
+    }
 }
